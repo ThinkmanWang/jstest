@@ -12,5 +12,5 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile 'org.seleniumhq.selenium:selenium-java:2.46.0'
-
+    compile group: 'com.github.detro.ghostdriver', name: 'phantomjsdriver', version: '1.0.1'
 }

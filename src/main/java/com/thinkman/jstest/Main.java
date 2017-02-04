@@ -8,6 +8,12 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.io.File;
 
 
@@ -16,7 +22,10 @@ import java.io.File;
  */
 public class Main {
     public static void main(String[] args){
-        getLoadTimeWin();
+        //getLoadTimeWin();
+
+        PhantomJSTest test = new PhantomJSTest();
+        test.checkSitePerformance("http://h5.ffan.com/newactivity/161225_promotion_H4.html?promotion_from=70-7-1-1");
     }
 
     public static void getLoadTimeWin() {
