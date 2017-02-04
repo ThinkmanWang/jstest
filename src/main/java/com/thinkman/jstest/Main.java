@@ -16,10 +16,14 @@ import java.io.File;
  */
 public class Main {
     public static void main(String[] args){
-        //System.setProperty("webdriver.chrome.driver", "D:\\Github-Thinkman\\JSTest\\chromedriver.exe");
-        File inputFile = new File("chromedriver");
-        System.out.println(inputFile.getAbsolutePath());
-        System.setProperty("webdriver.chrome.driver", inputFile.getAbsolutePath());
+        getLoadTimeWin();
+    }
+
+    public static void getLoadTimeWin() {
+        System.setProperty("webdriver.chrome.driver", "D:\\Github-Thinkman\\JSTest\\chromedriver.exe");
+        //File inputFile = new File("chromedriver");
+        //System.out.println(inputFile.getAbsolutePath());
+        //System.setProperty("webdriver.chrome.driver", inputFile.getAbsolutePath());
 
         WebDriver driver = new ChromeDriver();
         driver.get("http://h5.ffan.com/newactivity/161225_promotion_H4.html?promotion_from=70-7-1-1");
@@ -29,5 +33,6 @@ public class Main {
                 "return (window.performance.timing.loadEventEnd - window.performance.timing.navigationStart) / 1000");
         System.out.print(loadTime + " seconds"); // 5.15 seconds
 
+        driver.close();
     }
 }
