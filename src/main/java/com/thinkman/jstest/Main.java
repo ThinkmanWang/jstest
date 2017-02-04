@@ -15,7 +15,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 public class Main {
     public static void main(String[] args){
         //System.setProperty("webdriver.chrome.driver", "D:\\Github-Thinkman\\JSTest\\chromedriver.exe");
-        System.setProperty("webdriver.chrome.driver", "/mnt/d/Github-Thinkman/JSTest");
+        System.setProperty("webdriver.chrome.driver", "/mnt/d/Github-Thinkman/JSTest/chromedriver");
 
         WebDriver driver = new ChromeDriver();
         driver.get("http://h5.ffan.com/newactivity/161225_promotion_H4.html?promotion_from=70-7-1-1");
