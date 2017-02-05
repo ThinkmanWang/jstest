@@ -24,6 +24,8 @@ public class Main {
     public static void main(String[] args){
         //getLoadTimeWin();
 
+        //System.out.println(System.getProperty("os.name"));
+
         PhantomJSTest test = new PhantomJSTest();
         test.checkSitePerformance("http://h5.ffan.com/newactivity/161225_promotion_H4.html?promotion_from=70-7-1-1");
     }

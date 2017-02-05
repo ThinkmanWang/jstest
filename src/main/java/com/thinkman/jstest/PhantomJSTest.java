@@ -13,7 +13,10 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PhantomJSTest {
-    private static final String PHANTOMJS_PATH = "D:\\Github-Thinkman\\JSTest\\phantomjs.exe";
+
+    //Warning: phantomjs should be place to the same dictory of jar
+    private static final String PHANTOMJS_PATH_WIN = "phantomjs.exe";
+    private static final String PHANTOMJS_PATH_LINUX = "phantomjs";
 
     public PhantomJSTest() {
     }
@@ -26,7 +29,12 @@ public class PhantomJSTest {
         DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
         capabilities.setJavascriptEnabled(true);
 
-        System.setProperty("phantomjs.binary.path", PHANTOMJS_PATH);
+        if (System.getProperty("os.name").toLowerCase().startsWith("linux")) {
+            System.setProperty("phantomjs.binary.path", PHANTOMJS_PATH_LINUX);
+        } else {
+            System.setProperty("phantomjs.binary.path", PHANTOMJS_PATH_WIN);
+        }
+
         PhantomJSDriver driver = new PhantomJSDriver(capabilities);
         return driver;
     }
@@ -99,6 +107,7 @@ public class PhantomJSTest {
      * Check Performance.
      */
     public JsonObject checkSitePerformance(String url) {
+        System.out.println("Start check site performance");
         PhantomJSDriver driver = null;
         JsonObject jObjRet = new JsonObject();
         JsonObject jObjApp = new JsonObject();
@@ -134,7 +143,7 @@ public class PhantomJSTest {
             jObjApp.addProperty("ttfb", (Long) driver.executeScript("return window.performance.timing.responseStart - window.performance.timing.navigationStart") );
 
             jObjRet.add("app", jObjApp);
-            
+
             jObjRet.addProperty("sr", getSr(driver));
             jObjRet.addProperty("vp", getVp(driver));
             System.out.format("Response Time : %s\n", jObjRet.toString());
