@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -16,7 +17,7 @@ public class PhantomJSTest {
 
     //Warning: phantomjs should be place to the same dictory of jar
     private static final String PHANTOMJS_PATH_WIN = "phantomjs.exe";
-    private static final String PHANTOMJS_PATH_LINUX = "phantomjs";
+    private static final String PHANTOMJS_PATH_LINUX = "/mnt/d/Github-Thinkman/JSTest/phantomjs";
 
     public PhantomJSTest() {
     }
@@ -26,17 +27,28 @@ public class PhantomJSTest {
      */
     private PhantomJSDriver initDriver() {
         // set Capabilities
-        DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
-        capabilities.setJavascriptEnabled(true);
+        DesiredCapabilities capabilities = null;
 
-        if (System.getProperty("os.name").toLowerCase().startsWith("linux")) {
-            System.setProperty("phantomjs.binary.path", PHANTOMJS_PATH_LINUX);
-        } else {
+        if (System.getProperty("os.name").toLowerCase().startsWith("wim")) {
+            capabilities = DesiredCapabilities.phantomjs();
+            capabilities.setJavascriptEnabled(true);
             System.setProperty("phantomjs.binary.path", PHANTOMJS_PATH_WIN);
+        } else {
+            capabilities = new DesiredCapabilities();
+            capabilities.setJavascriptEnabled(true);
+            capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,"/usr/bin/phantomjs");
+            System.setProperty("phantomjs.binary.path", PHANTOMJS_PATH_LINUX);
         }
 
-        PhantomJSDriver driver = new PhantomJSDriver(capabilities);
-        return driver;
+        PhantomJSDriver driver = null;
+        try {
+            driver = new PhantomJSDriver(capabilities);
+            System.out.println("FXXK1.1");
+            return driver;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
     }
 
     private String getSr(PhantomJSDriver driver) {
@@ -107,7 +119,6 @@ public class PhantomJSTest {
      * Check Performance.
      */
     public JsonObject checkSitePerformance(String url) {
-        System.out.println("Start check site performance");
         PhantomJSDriver driver = null;
         JsonObject jObjRet = new JsonObject();
         JsonObject jObjApp = new JsonObject();
@@ -119,6 +130,7 @@ public class PhantomJSTest {
 
             jObjRet.addProperty("v", "0.0.2");
 
+//            System.out.println("FXXK2" + (Long) driver.executeScript("return window.performance.timing.fetchStart - window.performance.timing.navigationStart"));
             // Get values of Navigation Timing
             jObjApp.addProperty("redirect", (Long) driver.executeScript("return window.performance.timing.fetchStart - window.performance.timing.navigationStart") );
             jObjApp.addProperty("dns", (Long) driver.executeScript("return window.performance.timing.domainLookupEnd - window.performance.timing.domainLookupStart") );
