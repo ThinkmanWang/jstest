@@ -17,7 +17,7 @@ public class PhantomJSTest {
 
     //Warning: phantomjs should be place to the same dictory of jar
     private static final String PHANTOMJS_PATH_WIN = "phantomjs.exe";
-    private static final String PHANTOMJS_PATH_LINUX = "/mnt/d/Github-Thinkman/JSTest/phantomjs";
+    private static final String PHANTOMJS_PATH_LINUX = "/usr/bin/phantomjs";
 
     public PhantomJSTest() {
     }
